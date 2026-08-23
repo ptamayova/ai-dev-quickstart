@@ -50,14 +50,8 @@ it('installs editable development resources and configures composer', function (
     );
 
     expect($composer['require-dev'])
-        ->toMatchArray([
-            'driftingly/rector-laravel' => '^2.3',
+        ->toBe([
             'fakerphp/faker' => '^1.24',
-            'larastan/larastan' => '^3.9',
-            'pestphp/pest' => '^4.7',
-            'pestphp/pest-plugin-laravel' => '^4.1',
-            'pestphp/pest-plugin-type-coverage' => '^4.0',
-            'rector/rector' => '^2.4',
         ])
         ->and($composer['scripts']['existing'])->toBe('php artisan about')
         ->and($composer['scripts'])->toHaveKeys([
@@ -69,6 +63,45 @@ it('installs editable development resources and configures composer', function (
             'test:types',
             'test',
         ]);
+});
+
+it('uses Composer require with unversioned development dependencies', function () {
+    $binDirectory = $this->applicationPath.'/bin';
+    mkdir($binDirectory, 0755, true);
+
+    file_put_contents($binDirectory.'/composer', <<<'PHP'
+#!/usr/bin/env php
+<?php
+
+file_put_contents(getcwd().'/composer-arguments.json', json_encode(array_slice($argv, 1)));
+PHP);
+    chmod($binDirectory.'/composer', 0755);
+
+    $originalPath = getenv('PATH');
+    putenv("PATH={$binDirectory}:{$originalPath}");
+
+    try {
+        $this->artisan('ai-dev-quickstart:install')->assertSuccessful();
+    } finally {
+        putenv("PATH={$originalPath}");
+    }
+
+    expect(json_decode(
+        (string) file_get_contents($this->applicationPath.'/composer-arguments.json'),
+        true,
+        flags: JSON_THROW_ON_ERROR,
+    ))->toBe([
+        'require',
+        '--dev',
+        'driftingly/rector-laravel',
+        'larastan/larastan',
+        'pestphp/pest',
+        'pestphp/pest-plugin-laravel',
+        'pestphp/pest-plugin-type-coverage',
+        'rector/rector',
+        '--with-all-dependencies',
+        '--no-interaction',
+    ]);
 });
 
 it('preserves customized files and composer values unless forced', function () {

@@ -13,18 +13,18 @@ class InstallCommand extends Command
 {
     protected $signature = 'ai-dev-quickstart:install
         {--force : Overwrite existing customizable resource files}
-        {--no-composer : Update composer.json without installing dependencies}';
+        {--no-composer : Install resources and scripts without running Composer}';
 
     protected $description = 'Install the customizable AI development quickstart into the application';
 
-    /** @var array<string, string> */
+    /** @var list<string> */
     private const array DEV_DEPENDENCIES = [
-        'driftingly/rector-laravel' => '^2.3',
-        'larastan/larastan' => '^3.9',
-        'pestphp/pest' => '^4.7',
-        'pestphp/pest-plugin-laravel' => '^4.1',
-        'pestphp/pest-plugin-type-coverage' => '^4.0',
-        'rector/rector' => '^2.4',
+        'driftingly/rector-laravel',
+        'larastan/larastan',
+        'pestphp/pest',
+        'pestphp/pest-plugin-laravel',
+        'pestphp/pest-plugin-type-coverage',
+        'rector/rector',
     ];
 
     /** @var array<string, string|list<string>> */
@@ -116,20 +116,12 @@ class InstallCommand extends Command
             throw new JsonException('The root composer.json must contain a JSON object.');
         }
 
-        $requireDev = is_array($composer['require-dev'] ?? null) ? $composer['require-dev'] : [];
         $scripts = is_array($composer['scripts'] ?? null) ? $composer['scripts'] : [];
-
-        foreach (self::DEV_DEPENDENCIES as $package => $constraint) {
-            $requireDev[$package] ??= $constraint;
-        }
 
         foreach (self::COMPOSER_SCRIPTS as $name => $commands) {
             $scripts[$name] ??= $commands;
         }
 
-        ksort($requireDev);
-
-        $composer['require-dev'] = $requireDev;
         $composer['scripts'] = $scripts;
 
         $encoded = json_encode(
@@ -145,8 +137,9 @@ class InstallCommand extends Command
     {
         $process = new Process([
             'composer',
-            'update',
-            ...array_keys(self::DEV_DEPENDENCIES),
+            'require',
+            '--dev',
+            ...self::DEV_DEPENDENCIES,
             '--with-all-dependencies',
             '--no-interaction',
         ], base_path());

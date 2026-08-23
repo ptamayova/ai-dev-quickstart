@@ -30,9 +30,9 @@ composer require --dev mdecode/ai-dev-quickstart
 php artisan ai-dev-quickstart:install
 ```
 
-The command preserves existing resource files and existing Composer values. It installs missing development dependencies and scripts, then runs Composer.
+The command preserves existing resource files and existing Composer values. It adds missing scripts, then uses `composer require --dev` without versions so Composer can select and record the newest compatible development dependencies.
 
-Use `--no-composer` only when dependencies must be installed later. Use `--force` only when replacing the generated resource files is intentional.
+Use `--no-composer` only when Composer cannot run yet; re-run the installer without it to install dependencies later. Use `--force` only when replacing the generated resource files is intentional.
 
 ### 3. Customize the installed files
 

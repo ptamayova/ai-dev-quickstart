@@ -26,8 +26,8 @@ The installer:
 - copies `AGENTS.md` and the starter skills in `.agents/skills/` into your application;
 - adds an editable FrankenPHP `Dockerfile` and Docker Compose services for Laravel and PostgreSQL;
 - adds editable Pint, PHPStan/Larastan, and Rector configuration;
-- adds the requested development packages and quality scripts to the application's `composer.json`;
-- runs a targeted Composer update to install those development packages.
+- adds quality scripts to the application's `composer.json`;
+- uses `composer require --dev` to install the requested development packages. Composer selects the newest compatible releases and records their constraints in the application.
 
 Existing files, package constraints, and scripts are preserved. Use `--force` when you intentionally want to replace generated resource files:
 
@@ -35,7 +35,7 @@ Existing files, package constraints, and scripts are preserved. Use `--force` wh
 php artisan ai-dev-quickstart:install --force
 ```
 
-For offline setup or CI tests, `--no-composer` updates `composer.json` without running Composer:
+For offline setup or CI tests, `--no-composer` installs the resources and quality scripts without running Composer. Re-run the installer without this option when Composer is available to install the development packages:
 
 ```bash
 php artisan ai-dev-quickstart:install --no-composer
