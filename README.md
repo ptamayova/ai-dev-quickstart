@@ -93,7 +93,7 @@ Please review [our security policy](.github/SECURITY.md) on how to report securi
 
 ## Credits
 
-- [mdecode](https://github.com/mdecode)
+- [ptamayova](https://github.com/ptamayova)
 - [All Contributors](../../contributors)
 
 ## License
