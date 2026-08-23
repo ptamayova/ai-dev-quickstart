@@ -18,7 +18,7 @@ class InstallCommand extends Command
     protected $description = 'Install the customizable AI development quickstart into the application';
 
     /** @var array<string, string> */
-    private const DEV_DEPENDENCIES = [
+    private const array DEV_DEPENDENCIES = [
         'driftingly/rector-laravel' => '^2.3',
         'larastan/larastan' => '^3.9',
         'pestphp/pest' => '^4.7',
@@ -28,7 +28,7 @@ class InstallCommand extends Command
     ];
 
     /** @var array<string, string|list<string>> */
-    private const COMPOSER_SCRIPTS = [
+    private const array COMPOSER_SCRIPTS = [
         'lint' => [
             'rector',
             'pint --parallel',
@@ -53,7 +53,7 @@ class InstallCommand extends Command
     ];
 
     /** @var array<string, string> */
-    private const RESOURCES = [
+    private const array RESOURCES = [
         'AGENTS.md' => 'AGENTS.md',
         'skills/laravel-actions/SKILL.md' => '.agents/skills/laravel-actions/SKILL.md',
         'skills/laravel-testing/SKILL.md' => '.agents/skills/laravel-testing/SKILL.md',
