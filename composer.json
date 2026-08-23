@@ -63,10 +63,10 @@
             "@php vendor/bin/testbench serve --ansi"
         ],
         "lint": [
-            "vendor/bin/pint --parallel"
+            "vendor/bin/pint"
         ],
         "lint:check": [
-            "vendor/bin/pint --parallel --test"
+            "vendor/bin/pint --test"
         ],
         "analyse": [
             "vendor/bin/phpstan analyse"

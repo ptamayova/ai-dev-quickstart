@@ -43,7 +43,7 @@ Use `--no-composer` only when Composer cannot run yet; re-run the installer with
 
 ### 4. Validate the application
 
-Run the narrow command needed during development, then run `composer test`. Use `docker compose up --build` to validate the FrankenPHP and PostgreSQL setup.
+Run the narrow command needed during development, then run `composer test` for the full quality gate (PHPStan, formatting, type coverage, and Pest). Use `docker compose up --build` to validate the FrankenPHP and PostgreSQL setup.
 
 ## Rules, References, and Templates
 

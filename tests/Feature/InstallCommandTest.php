@@ -72,16 +72,23 @@ it('uses Composer require with unversioned development dependencies', function (
     $binDirectory = $this->applicationPath.'/bin';
     mkdir($binDirectory, 0755, true);
 
-    file_put_contents($binDirectory.'/composer', <<<'PHP'
+    $composerScript = <<<'PHP'
 #!/usr/bin/env php
 <?php
 
 file_put_contents(getcwd().'/composer-arguments.json', json_encode(array_slice($argv, 1)));
-PHP);
-    chmod($binDirectory.'/composer', 0755);
+PHP;
+
+    if (DIRECTORY_SEPARATOR === '\\') {
+        file_put_contents($binDirectory.'/composer.php', $composerScript);
+        file_put_contents($binDirectory.'/composer.bat', '@php "%~dp0composer.php" %*'.PHP_EOL);
+    } else {
+        file_put_contents($binDirectory.'/composer', $composerScript);
+        chmod($binDirectory.'/composer', 0755);
+    }
 
     $originalPath = getenv('PATH');
-    putenv("PATH={$binDirectory}:{$originalPath}");
+    putenv("PATH={$binDirectory}".PATH_SEPARATOR.$originalPath);
 
     try {
         $this->artisan('ai-dev-quickstart:install')->assertSuccessful();
