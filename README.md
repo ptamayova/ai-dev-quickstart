@@ -3,11 +3,11 @@
 </div>
 
 <p align="center">
-    <a href="https://packagist.org/packages/mdecode/ai-dev-quickstart"><img src="https://img.shields.io/packagist/v/mdecode/ai-dev-quickstart.svg?style=flat-square" alt="Packagist"></a>
-    <a href="https://packagist.org/packages/mdecode/ai-dev-quickstart"><img src="https://img.shields.io/packagist/php-v/mdecode/ai-dev-quickstart.svg?style=flat-square" alt="PHP from Packagist"></a>
-    <a href="https://packagist.org/packages/mdecode/ai-dev-quickstart"><img src="https://badge.laravel.cloud/badge/mdecode/ai-dev-quickstart?style=flat" alt="Laravel versions"></a>
-    <a href="https://github.com/mdecode/ai-dev-quickstart/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/mdecode/ai-dev-quickstart/tests.yml?branch=main&label=Tests&style=flat-square"></a>
-    <a href="https://packagist.org/packages/mdecode/ai-dev-quickstart"><img src="https://img.shields.io/packagist/dt/mdecode/ai-dev-quickstart.svg?style=flat-square" alt="Total Downloads"></a>
+    <a href="https://github.com/ptamayova/ai-dev-quickstart/releases"><img src="https://img.shields.io/github/v/release/ptamayova/ai-dev-quickstart?style=flat-square" alt="Latest release"></a>
+    <a href="https://github.com/ptamayova/ai-dev-quickstart/blob/main/composer.json"><img src="https://img.shields.io/badge/PHP-8.3%2B-777BB4?style=flat-square&logo=php&logoColor=white" alt="Requires PHP 8.3 or later"></a>
+    <a href="https://github.com/ptamayova/ai-dev-quickstart/blob/main/composer.json"><img src="https://img.shields.io/badge/Laravel-12%20%7C%2013-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Supports Laravel 12 and 13"></a>
+    <a href="https://github.com/ptamayova/ai-dev-quickstart/actions/workflows/tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/ptamayova/ai-dev-quickstart/tests.yml?branch=main&label=Tests&style=flat-square" alt="Tests"></a>
+    <a href="https://github.com/ptamayova/ai-dev-quickstart/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/ptamayova/ai-dev-quickstart?style=flat-square" alt="MIT License"></a>
 </p>
 
 Ai Dev Quickstart gives a Laravel application an editable development baseline. Its installer adds AI instructions and Laravel skills, a FrankenPHP and PostgreSQL Docker setup, Pint, PHPStan/Larastan, and Rector configuration, plus Composer scripts for the quality suite. Everything it installs belongs to your application and can be customized.
