@@ -30,7 +30,7 @@ composer require --dev mdecode/ai-dev-quickstart
 php artisan ai-dev-quickstart:install
 ```
 
-The command asks whether existing `AGENTS.md` and `CLAUDE.md` files should receive the package baseline as an attachment or be replaced; attachment is the default. It preserves other existing resource files and Composer values, adds missing scripts, then uses `composer require --dev` without versions so Composer can select and record the newest compatible development dependencies.
+The command uses an interactive selector when existing `AGENTS.md` and `CLAUDE.md` files are found: attach the package baseline (the default) or replace the file. It preserves other existing resource files and Composer values, adds missing scripts, then uses `composer require --dev` without versions so Composer can select and record the newest compatible development dependencies.
 
 Use `--no-composer` only when Composer cannot run yet; re-run the installer without it to install dependencies later. Use `--force` only when replacing the generated resource files is intentional.
 

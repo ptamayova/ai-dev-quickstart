@@ -126,13 +126,19 @@ it('attaches or replaces customized instruction files without changing composer 
     $this->artisan('ai-dev-quickstart:install', ['--no-composer' => true])
         ->expectsChoice(
             'AGENTS.md already exists. How should the AI development quickstart content be installed?',
-            'Attach',
-            ['Attach', 'Replace'],
+            'attach',
+            [
+                'attach' => 'Attach the quickstart content',
+                'replace' => 'Replace the existing file',
+            ],
         )
         ->expectsChoice(
             'CLAUDE.md already exists. How should the AI development quickstart content be installed?',
-            'Attach',
-            ['Attach', 'Replace'],
+            'attach',
+            [
+                'attach' => 'Attach the quickstart content',
+                'replace' => 'Replace the existing file',
+            ],
         )
         ->assertSuccessful();
 
@@ -167,13 +173,19 @@ it('replaces existing instruction files when selected', function () {
     $this->artisan('ai-dev-quickstart:install', ['--no-composer' => true])
         ->expectsChoice(
             'AGENTS.md already exists. How should the AI development quickstart content be installed?',
-            'Replace',
-            ['Attach', 'Replace'],
+            'replace',
+            [
+                'attach' => 'Attach the quickstart content',
+                'replace' => 'Replace the existing file',
+            ],
         )
         ->expectsChoice(
             'CLAUDE.md already exists. How should the AI development quickstart content be installed?',
-            'Replace',
-            ['Attach', 'Replace'],
+            'replace',
+            [
+                'attach' => 'Attach the quickstart content',
+                'replace' => 'Replace the existing file',
+            ],
         )
         ->assertSuccessful();
 

@@ -9,6 +9,8 @@ use Illuminate\Filesystem\Filesystem;
 use JsonException;
 use Symfony\Component\Process\Process;
 
+use function Laravel\Prompts\select;
+
 class InstallCommand extends Command
 {
     protected $signature = 'ai-dev-quickstart:install
@@ -117,13 +119,16 @@ class InstallCommand extends Command
     private function installInstructionFile(Filesystem $files, string $source, string $destination): void
     {
         $target = base_path($destination);
-        $action = $this->choice(
-            "{$destination} already exists. How should the AI development quickstart content be installed?",
-            ['Attach', 'Replace'],
-            'Attach',
+        $action = select(
+            label: "{$destination} already exists. How should the AI development quickstart content be installed?",
+            options: [
+                'attach' => 'Attach the quickstart content',
+                'replace' => 'Replace the existing file',
+            ],
+            default: 'attach',
         );
 
-        if ($action === 'Attach') {
+        if ($action === 'attach') {
             $content = rtrim($files->get($target))."\n\n".ltrim($files->get($this->resourcePath($source)));
 
             $files->put($target, $content, true);
