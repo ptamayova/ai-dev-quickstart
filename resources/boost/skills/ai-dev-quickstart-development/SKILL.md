@@ -13,7 +13,7 @@ Use this skill when a Laravel application needs to integrate the Ai Dev Quicksta
 
 ## Primary Goal
 
-- install a customizable, application-owned baseline for AI rules, Laravel development skills, quality tooling, and Docker services
+- install a customizable, application-owned baseline for AI instructions, Laravel development skills, quality tooling, and Docker services
 
 ## Workflow
 
@@ -30,7 +30,7 @@ composer require --dev mdecode/ai-dev-quickstart
 php artisan ai-dev-quickstart:install
 ```
 
-The command uses an interactive selector when existing `AGENTS.md` and `CLAUDE.md` files are found: attach the package baseline (the default) or replace the file. It preserves other existing resource files and Composer values, adds missing scripts, then uses `composer require --dev` without versions so Composer can select and record the newest compatible development dependencies.
+The command uses an interactive selector when existing `AGENTS.md` and `CLAUDE.md` files are found: append the package baseline (the default) or replace the file. It preserves other existing resource files and Composer values, adds missing scripts, then uses `composer require --dev` without versions so Composer can select and record the newest compatible development dependencies.
 
 Use `--no-composer` only when Composer cannot run yet; re-run the installer without it to install dependencies later. Use `--force` only when replacing the generated resource files is intentional.
 

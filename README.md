@@ -10,32 +10,32 @@
     <a href="https://packagist.org/packages/mdecode/ai-dev-quickstart"><img src="https://img.shields.io/packagist/dt/mdecode/ai-dev-quickstart.svg?style=flat-square" alt="Total Downloads"></a>
 </p>
 
-A quickstart package for configuring new Laravel applications with customizable AI development rules, skills, quality tools, and a FrankenPHP development environment.
+Ai Dev Quickstart gives a Laravel application an editable development baseline. Its installer adds AI instructions and Laravel skills, a FrankenPHP and PostgreSQL Docker setup, Pint, PHPStan/Larastan, and Rector configuration, plus Composer scripts for the quality suite. Everything it installs belongs to your application and can be customized.
 
 ## Installation
 
-Install the package as a development dependency, then run its installer:
+Install the package as a development dependency, then run the installer from your Laravel application's root:
 
 ```bash
 composer require --dev mdecode/ai-dev-quickstart
 php artisan ai-dev-quickstart:install
 ```
 
-The installer:
+The installer adds:
 
-- copies `AGENTS.md`, `CLAUDE.md`, and the starter skills in `.agents/skills/` into your application;
-- adds an editable FrankenPHP `Dockerfile` and Docker Compose services for Laravel and PostgreSQL;
-- adds editable Pint, PHPStan/Larastan, and Rector configuration;
-- adds quality scripts to the application's `composer.json`;
-- uses `composer require --dev` to install the requested development packages. Composer selects the newest compatible releases and records their constraints in the application.
+- `AGENTS.md`, `CLAUDE.md`, and starter Laravel skills in `.agents/skills/`;
+- `docker-compose.yml` and a FrankenPHP Dockerfile with PostgreSQL;
+- `pint.json`, `phpstan.neon`, and `rector.php`;
+- quality scripts in `composer.json`; and
+- compatible development dependencies for Pest, PHPStan/Larastan, and Rector.
 
-When `AGENTS.md` or `CLAUDE.md` already exists, the installer asks whether to attach the package baseline or replace the file; attaching is the default. Other existing files, package constraints, and scripts are preserved. Use `--force` when you intentionally want to replace all generated resource files:
+When `AGENTS.md` or `CLAUDE.md` already exists, the installer asks whether to append the baseline or replace it; appending is the default. Other existing files, Composer constraints, and scripts are preserved. Use `--force` only when you intentionally want to replace generated files:
 
 ```bash
 php artisan ai-dev-quickstart:install --force
 ```
 
-For offline setup or CI tests, `--no-composer` installs the resources and quality scripts without running Composer. Re-run the installer without this option when Composer is available to install the development packages:
+For an offline or staged setup, `--no-composer` writes resources and Composer scripts without installing dependencies. Run the installer again without this option when Composer is available:
 
 ```bash
 php artisan ai-dev-quickstart:install --no-composer
@@ -43,17 +43,17 @@ php artisan ai-dev-quickstart:install --no-composer
 
 ## Usage
 
-All installed files belong to the consuming application and are intended to be customized. Re-running the installer does not replace those files unless `--force` is supplied.
+Customize the installed instructions, skills, Docker files, and quality configuration for your application. Re-running the installer preserves them unless `--force` is supplied.
 
 ### Docker
 
-Start the FrankenPHP application and PostgreSQL services:
+Start the included FrankenPHP application and PostgreSQL services:
 
 ```bash
 docker compose up --build
 ```
 
-The application is available at `http://localhost:8000` by default. Set `APP_PORT` or the `DB_*` environment variables to customize the Compose services.
+The application is available at `http://localhost:8000` by default. Set `APP_PORT` or `DB_*` values to customize the Compose services.
 
 ### Quality commands
 
@@ -64,16 +64,16 @@ composer lint
 # Check Rector and Pint without changing files
 composer lint:check
 
-# Run Pest type coverage
+# Check Pest type coverage
 composer test:type-coverage
 
-# Run Pest with exact test coverage
+# Run Pest with exact coverage
 composer test:unit
 
 # Run PHPStan/Larastan
 composer test:types
 
-# Run the complete PHP quality suite
+# Run the complete quality suite
 composer test
 ```
 
