@@ -23,13 +23,13 @@ php artisan ai-dev-quickstart:install
 
 The installer:
 
-- copies `AGENTS.md` and the starter skills in `.agents/skills/` into your application;
+- copies `AGENTS.md`, `CLAUDE.md`, and the starter skills in `.agents/skills/` into your application;
 - adds an editable FrankenPHP `Dockerfile` and Docker Compose services for Laravel and PostgreSQL;
 - adds editable Pint, PHPStan/Larastan, and Rector configuration;
 - adds quality scripts to the application's `composer.json`;
 - uses `composer require --dev` to install the requested development packages. Composer selects the newest compatible releases and records their constraints in the application.
 
-Existing files, package constraints, and scripts are preserved. Use `--force` when you intentionally want to replace generated resource files:
+When `AGENTS.md` or `CLAUDE.md` already exists, the installer asks whether to attach the package baseline or replace the file; attaching is the default. Other existing files, package constraints, and scripts are preserved. Use `--force` when you intentionally want to replace all generated resource files:
 
 ```bash
 php artisan ai-dev-quickstart:install --force

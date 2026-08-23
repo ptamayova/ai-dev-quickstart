@@ -20,7 +20,7 @@ Use this skill when a Laravel application needs to integrate the Ai Dev Quicksta
 ### 1. Inspect the Laravel application
 
 - confirm the working directory contains `artisan` and `composer.json`
-- inspect existing `AGENTS.md`, `.agents/skills`, Docker, Rector, Pint, and PHPStan files before installing
+- inspect existing `AGENTS.md`, `CLAUDE.md`, `.agents/skills`, Docker, Rector, Pint, and PHPStan files before installing
 - preserve app-specific Composer constraints and scripts
 
 ### 2. Install the baseline
@@ -30,13 +30,13 @@ composer require --dev mdecode/ai-dev-quickstart
 php artisan ai-dev-quickstart:install
 ```
 
-The command preserves existing resource files and existing Composer values. It adds missing scripts, then uses `composer require --dev` without versions so Composer can select and record the newest compatible development dependencies.
+The command asks whether existing `AGENTS.md` and `CLAUDE.md` files should receive the package baseline as an attachment or be replaced; attachment is the default. It preserves other existing resource files and Composer values, adds missing scripts, then uses `composer require --dev` without versions so Composer can select and record the newest compatible development dependencies.
 
 Use `--no-composer` only when Composer cannot run yet; re-run the installer without it to install dependencies later. Use `--force` only when replacing the generated resource files is intentional.
 
 ### 3. Customize the installed files
 
-- adapt `AGENTS.md` to the application's actual architecture
+- adapt `AGENTS.md` and `CLAUDE.md` to the application's actual architecture
 - add or refine skills under `.agents/skills/`
 - adjust `docker-compose.yml` and `docker/laravel/Dockerfile` for local infrastructure
 - tune `phpstan.neon`, `pint.json`, and `rector.php` as the application evolves
@@ -51,6 +51,7 @@ Read before executing:
 
 - `README.md`
 - the consuming application's `AGENTS.md`
+- the consuming application's `CLAUDE.md`
 - the consuming application's `.agents/skills/`
 - the consuming application's `composer.json`
 
@@ -62,6 +63,6 @@ Read before executing:
 ## Anti-patterns
 
 - do not document package internals here; keep the skill focused on adoption in Laravel apps
-- do not assume `--force` merges customized files; it replaces package-generated resource destinations
+- attach the package baseline to customized instruction files unless replacement is intentional; `--force` replaces package-generated resource destinations
 - do not delete existing application-specific Composer scripts or constraints
 - do not treat the generated rules and tool configuration as immutable vendor files

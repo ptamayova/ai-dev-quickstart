@@ -32,6 +32,7 @@ it('installs editable development resources and configures composer', function (
         ->assertSuccessful();
 
     expect($this->applicationPath.'/AGENTS.md')->toBeFile()
+        ->and($this->applicationPath.'/CLAUDE.md')->toBeFile()
         ->and($this->applicationPath.'/.agents/skills/laravel-actions/SKILL.md')->toBeFile()
         ->and($this->applicationPath.'/.agents/skills/laravel-testing/SKILL.md')->toBeFile()
         ->and($this->applicationPath.'/docker-compose.yml')->toBeFile()
@@ -41,7 +42,9 @@ it('installs editable development resources and configures composer', function (
         ->and($this->applicationPath.'/rector.php')->toBeFile();
 
     expect(file_get_contents($this->applicationPath.'/AGENTS.md'))
-        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/AGENTS.md'));
+        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/AGENTS.md'))
+        ->and(file_get_contents($this->applicationPath.'/CLAUDE.md'))
+        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/CLAUDE.md'));
 
     $composer = json_decode(
         (string) file_get_contents($this->applicationPath.'/composer.json'),
@@ -104,8 +107,9 @@ PHP);
     ]);
 });
 
-it('preserves customized files and composer values unless forced', function () {
+it('attaches or replaces customized instruction files without changing composer values', function () {
     file_put_contents($this->applicationPath.'/AGENTS.md', 'custom rules');
+    file_put_contents($this->applicationPath.'/CLAUDE.md', 'custom Claude rules');
 
     $composer = json_decode(
         (string) file_get_contents($this->applicationPath.'/composer.json'),
@@ -120,6 +124,16 @@ it('preserves customized files and composer values unless forced', function () {
     );
 
     $this->artisan('ai-dev-quickstart:install', ['--no-composer' => true])
+        ->expectsChoice(
+            'AGENTS.md already exists. How should the AI development quickstart content be installed?',
+            'Attach',
+            ['Attach', 'Replace'],
+        )
+        ->expectsChoice(
+            'CLAUDE.md already exists. How should the AI development quickstart content be installed?',
+            'Attach',
+            ['Attach', 'Replace'],
+        )
         ->assertSuccessful();
 
     $composer = json_decode(
@@ -128,7 +142,10 @@ it('preserves customized files and composer values unless forced', function () {
         flags: JSON_THROW_ON_ERROR,
     );
 
-    expect(file_get_contents($this->applicationPath.'/AGENTS.md'))->toBe('custom rules')
+    expect(file_get_contents($this->applicationPath.'/AGENTS.md'))
+        ->toBe("custom rules\n\n".file_get_contents(__DIR__.'/../../resources/stubs/AGENTS.md'))
+        ->and(file_get_contents($this->applicationPath.'/CLAUDE.md'))
+        ->toBe("custom Claude rules\n\n".file_get_contents(__DIR__.'/../../resources/stubs/CLAUDE.md'))
         ->and($composer['require-dev']['rector/rector'])->toBe('^2.5')
         ->and($composer['scripts']['lint'])->toBe('custom lint');
 
@@ -138,7 +155,32 @@ it('preserves customized files and composer values unless forced', function () {
     ])->assertSuccessful();
 
     expect(file_get_contents($this->applicationPath.'/AGENTS.md'))
-        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/AGENTS.md'));
+        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/AGENTS.md'))
+        ->and(file_get_contents($this->applicationPath.'/CLAUDE.md'))
+        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/CLAUDE.md'));
+});
+
+it('replaces existing instruction files when selected', function () {
+    file_put_contents($this->applicationPath.'/AGENTS.md', 'custom rules');
+    file_put_contents($this->applicationPath.'/CLAUDE.md', 'custom Claude rules');
+
+    $this->artisan('ai-dev-quickstart:install', ['--no-composer' => true])
+        ->expectsChoice(
+            'AGENTS.md already exists. How should the AI development quickstart content be installed?',
+            'Replace',
+            ['Attach', 'Replace'],
+        )
+        ->expectsChoice(
+            'CLAUDE.md already exists. How should the AI development quickstart content be installed?',
+            'Replace',
+            ['Attach', 'Replace'],
+        )
+        ->assertSuccessful();
+
+    expect(file_get_contents($this->applicationPath.'/AGENTS.md'))
+        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/AGENTS.md'))
+        ->and(file_get_contents($this->applicationPath.'/CLAUDE.md'))
+        ->toBe(file_get_contents(__DIR__.'/../../resources/stubs/CLAUDE.md'));
 });
 
 it('fails loudly when the application composer manifest is invalid', function () {

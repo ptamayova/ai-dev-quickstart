@@ -55,6 +55,7 @@ class InstallCommand extends Command
     /** @var array<string, string> */
     private const array RESOURCES = [
         'AGENTS.md' => 'AGENTS.md',
+        'CLAUDE.md' => 'CLAUDE.md',
         'skills/laravel-actions/SKILL.md' => '.agents/skills/laravel-actions/SKILL.md',
         'skills/laravel-testing/SKILL.md' => '.agents/skills/laravel-testing/SKILL.md',
         'docker-compose.yml' => 'docker-compose.yml',
@@ -62,6 +63,12 @@ class InstallCommand extends Command
         'phpstan.neon' => 'phpstan.neon',
         'pint.json' => 'pint.json',
         'rector.php' => 'rector.php',
+    ];
+
+    /** @var list<string> */
+    private const array INSTRUCTION_FILES = [
+        'AGENTS.md',
+        'CLAUDE.md',
     ];
 
     public function handle(Filesystem $files): int
@@ -89,6 +96,12 @@ class InstallCommand extends Command
         foreach (self::RESOURCES as $source => $destination) {
             $target = base_path($destination);
 
+            if ($files->exists($target) && in_array($destination, self::INSTRUCTION_FILES, true) && ! $this->option('force')) {
+                $this->installInstructionFile($files, $source, $destination);
+
+                continue;
+            }
+
             if ($files->exists($target) && ! $this->option('force')) {
                 $this->components->warn("Kept existing {$destination}");
 
@@ -99,6 +112,28 @@ class InstallCommand extends Command
             $files->copy($this->resourcePath($source), $target);
             $this->components->task("Installed {$destination}");
         }
+    }
+
+    private function installInstructionFile(Filesystem $files, string $source, string $destination): void
+    {
+        $target = base_path($destination);
+        $action = $this->choice(
+            "{$destination} already exists. How should the AI development quickstart content be installed?",
+            ['Attach', 'Replace'],
+            'Attach',
+        );
+
+        if ($action === 'Attach') {
+            $content = rtrim($files->get($target))."\n\n".ltrim($files->get($this->resourcePath($source)));
+
+            $files->put($target, $content, true);
+            $this->components->task("Attached content to {$destination}");
+
+            return;
+        }
+
+        $files->copy($this->resourcePath($source), $target);
+        $this->components->task("Replaced {$destination}");
     }
 
     /** @throws JsonException */
