@@ -13,7 +13,7 @@ Use this skill when a Laravel application needs to integrate the Ai Dev Quicksta
 
 ## Primary Goal
 
-- install a customizable, application-owned baseline for AI instructions, Laravel development skills, quality tooling, and Docker services
+- install a customizable, application-owned baseline for AI instructions, Laravel development and collaboration skills, quality tooling, and Docker services
 
 ## Workflow
 
@@ -37,6 +37,7 @@ Use `--no-composer` only when Composer cannot run yet; re-run the installer with
 ### 3. Customize the installed files
 
 - adapt `AGENTS.md` and `CLAUDE.md` to the application's actual architecture
+- use the installed `requirements-to-gh-issue`, `pr-description`, and `pr-review` skills for repo-grounded planning and pull-request work; adapt them if the application architecture changes
 - add or refine skills under `.agents/skills/`
 - adjust `docker-compose.yml` and `docker/laravel/Dockerfile` for local infrastructure
 - tune `phpstan.neon`, `pint.json`, and `rector.php` as the application evolves

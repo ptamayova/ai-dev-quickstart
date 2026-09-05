@@ -10,7 +10,7 @@
     <a href="https://github.com/ptamayova/ai-dev-quickstart/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/ptamayova/ai-dev-quickstart?style=flat-square" alt="MIT License"></a>
 </p>
 
-Ai Dev Quickstart gives a Laravel application an editable development baseline. Its installer adds AI instructions and Laravel skills, a FrankenPHP and PostgreSQL Docker setup, Pint, PHPStan/Larastan, and Rector configuration, plus Composer scripts for the quality suite. Everything it installs belongs to your application and can be customized.
+Ai Dev Quickstart gives a Laravel application an editable development baseline. Its installer adds AI instructions and Laravel skills for implementation, testing, requirements, pull-request descriptions, and architecture-aware reviews; a FrankenPHP and PostgreSQL Docker setup; Pint, PHPStan/Larastan, and Rector configuration; plus Composer scripts for the quality suite. Everything it installs belongs to your application and can be customized.
 
 ## Installation
 
@@ -23,7 +23,7 @@ php artisan ai-dev-quickstart:install
 
 The installer adds:
 
-- `AGENTS.md`, `CLAUDE.md`, and starter Laravel skills in `.agents/skills/`;
+- `AGENTS.md`, `CLAUDE.md`, and starter Laravel skills in `.agents/skills/`, including requirement-to-issue, PR-description, and PR-review workflows;
 - `docker-compose.yml` and a FrankenPHP Dockerfile with PostgreSQL;
 - `pint.json`, `phpstan.neon`, and `rector.php`;
 - quality scripts in `composer.json`; and
