@@ -37,7 +37,9 @@ Use `--no-composer` only when Composer cannot run yet; re-run the installer with
 ### 3. Customize the installed files
 
 - adapt `AGENTS.md` and `CLAUDE.md` to the application's actual architecture
-- use the installed `requirements-to-gh-issue`, `pr-description`, and `pr-review` skills for repo-grounded planning and pull-request work; adapt them if the application architecture changes
+- read `AGENTS.md` before making changes: it establishes clean-code and SOLID conventions through Form Requests, thin controllers, focused Actions, direct Eloquent access, model scopes, and transactions for related writes
+- use `laravel-actions` and `laravel-testing` for application behavior and coverage decisions
+- use `requirements-to-gh-issue`, `pr-description`, and `pr-review` for repository-grounded planning and pull-request work; adapt every installed skill if the application architecture changes
 - add or refine skills under `.agents/skills/`
 - adjust `docker-compose.yml` and `docker/laravel/Dockerfile` for local infrastructure
 - tune `phpstan.neon`, `pint.json`, and `rector.php` as the application evolves

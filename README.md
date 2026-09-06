@@ -12,6 +12,26 @@
 
 Ai Dev Quickstart gives a Laravel application an editable development baseline. Its installer adds AI instructions and Laravel skills for implementation, testing, requirements, pull-request descriptions, and architecture-aware reviews; a FrankenPHP and PostgreSQL Docker setup; Pint, PHPStan/Larastan, and Rector configuration; plus Composer scripts for the quality suite. Everything it installs belongs to your application and can be customized.
 
+## Proposed architecture
+
+The quickstart provides a pragmatic Laravel architecture rather than a rigid framework. It applies SOLID and clean-code principles through focused boundaries: Form Requests validate HTTP input, thin controllers translate requests into responses, and single-purpose Actions hold each business use case. Actions use Eloquent directly, keep reusable query constraints in model scopes, and wrap related writes in transactions. This keeps application behavior reusable from HTTP controllers, commands, and jobs without adding repository or service layers by default.
+
+The generated [AGENTS.md](resources/stubs/AGENTS.md) explains these conventions and the accompanying testing strategy in detail. Treat it as an editable starting point: adapt it to your application as its domains and constraints become clear.
+
+## Read after installation
+
+The installer writes the following files into your application's root or `.agents/skills/` directory. Read them before asking an AI agent to make changes, then customize them to fit the application.
+
+- [`AGENTS.md`](resources/stubs/AGENTS.md) — architecture, clean-code rules, and testing strategy.
+- [`CLAUDE.md`](resources/stubs/CLAUDE.md) — equivalent project instructions for Claude.
+- [`laravel-actions`](resources/stubs/skills/laravel-actions/SKILL.md) — implements use cases with thin HTTP boundaries and focused Actions.
+- [`laravel-testing`](resources/stubs/skills/laravel-testing/SKILL.md) — selects efficient Pest coverage for Laravel behavior.
+- [`requirements-to-gh-issue`](resources/stubs/skills/requirements-to-gh-issue/SKILL.md) — turns a requirement into a repository-grounded GitHub issue.
+- [`pr-description`](resources/stubs/skills/pr-description/SKILL.md) — drafts evidence-based pull-request descriptions.
+- [`pr-review`](resources/stubs/skills/pr-review/SKILL.md) — reviews pull-request diffs for behavior, security, and architecture risks.
+
+These links show the shipped templates; after installation, use the matching files in your application as the source of truth.
+
 ## Installation
 
 Install the package as a development dependency, then run the installer from your Laravel application's root:
