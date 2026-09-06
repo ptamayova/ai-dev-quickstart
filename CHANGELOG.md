@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/mdecode/ai-dev-quickstart/compare/1.3.1...HEAD)
+## [Unreleased](https://github.com/mdecode/ai-dev-quickstart/compare/1.4.0...HEAD)
+
+## [1.4.0](https://github.com/mdecode/ai-dev-quickstart/compare/1.3.1...1.4.0) - 2026-09-06
+
+<!-- Release notes generated using configuration in .github/release.yml at 1.4.0 -->
+**Full Changelog**: https://github.com/ptamayova/ai-dev-quickstart/compare/1.3.1...1.4.0
 
 ## [1.3.1](https://github.com/mdecode/ai-dev-quickstart/compare/1.3.0...1.3.1) - 2026-09-05
 
